@@ -1,4 +1,4 @@
-package com.app.pixabay
+package com.app.core
 
 import org.junit.Test
 
