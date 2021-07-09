@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
 }
 
@@ -7,13 +7,13 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "com.app.pixabay"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -32,9 +32,11 @@ android {
 }
 
 dependencies {
-    implementation AndroidXDependencies.constraintlayout
-
-    testImplementation TestDependencies.jUnit
-    androidTestImplementation TestDependencies.androidx_test_ext_jUnit
-    androidTestImplementation TestDependencies.espresso_core
+    api(KotlinDependencies.kotlin_stdlib)
+    api(AndroidXDependencies.core_ktx)
+    api(AndroidXDependencies.appcompat)
+    api(AndroidXDependencies.material)
+    testImplementation(TestDependencies.jUnit)
+    androidTestImplementation(TestDependencies.androidx_test_ext_jUnit)
+    androidTestImplementation(TestDependencies.espresso_core)
 }

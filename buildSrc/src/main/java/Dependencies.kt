@@ -22,14 +22,14 @@ object GradleDependencies {
 object AndroidXDependencies {
     val core_ktx = "androidx.core:core-ktx:1.6.0"
     val appcompat = "androidx.appcompat:appcompat:1.3.0"
-    val material = "com.google.android.material:material:1.3.0"
+    val material = "com.google.android.material:material:1.4.0"
     val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
     val location_services = "com.google.android.gms:play-services-location:18.0.0"
     val swipe_refresh_layout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
 
 object TestDependencies {
-    val jUnit = "junit:junit:4.+"
+    val jUnit = "junit:junit:4.13.2"
     val androidx_core_testing = "androidx.arch.core:core-testing:$arch_version"
     val androidx_truth = "androidx.test.ext:truth:1.3.0"
     val google_truth = "com.google.truth:truth:1.1"
