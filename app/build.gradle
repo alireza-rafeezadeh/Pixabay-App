@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -35,6 +36,8 @@ android {
 dependencies {
     implementation AndroidXDependencies.constraintlayout
 
+    implementation(JetpackDependencies.hilt_android)
+    kapt(JetpackDependencies.hilt_compiler)
     implementation(JetpackDependencies.viewmodel)
     implementation(JetpackDependencies.livedata)
     implementation(JetpackDependencies.viewmodel_saved_state)
@@ -59,4 +62,5 @@ dependencies {
     androidTestImplementation(TestDependencies.androidx_truth)
     androidTestImplementation(TestDependencies.google_truth)
     androidTestImplementation(TestDependencies.navigation_testing)
+    kaptAndroidTest(JetpackDependencies.hilt_android_compiler)
 }
