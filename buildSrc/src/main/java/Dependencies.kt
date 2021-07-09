@@ -24,8 +24,6 @@ object AndroidXDependencies {
     val appcompat = "androidx.appcompat:appcompat:1.3.0"
     val material = "com.google.android.material:material:1.4.0"
     val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
-    val location_services = "com.google.android.gms:play-services-location:18.0.0"
-    val swipe_refresh_layout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
 
 object TestDependencies {
