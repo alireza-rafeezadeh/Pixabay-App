@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/preview_image_view"
+        android:layout_width="102dp"
+        android:layout_height="77dp"
+        tools:background="#F39898"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/user_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Alireza Rafee"
+        app:layout_constraintStart_toEndOf="@+id/preview_image_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/views_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="1292 views"
+        app:layout_constraintStart_toStartOf="@+id/user_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/user_text_view" />
+
+    <TextView
+        android:id="@+id/downloads_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="4242 downloads"
+        app:layout_constraintStart_toStartOf="@+id/views_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/views_text_view" />
+
+    <TextView
+        android:id="@+id/likes_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="23393 likes"
+        app:layout_constraintStart_toStartOf="@+id/downloads_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/downloads_text_view" />
+</androidx.constraintlayout.widget.ConstraintLayout>
