@@ -13,7 +13,7 @@ class SearchRemoteDataSourceImpl @Inject constructor(
 ) : BaseDataSource(), SearchRemoteDataSource {
     override suspend fun search(): Flow<ResultWrapper<SearchResponse>> {
         return flowOnIO {
-            searchApi.search(q = "", imageType = "", page = "1")
+            searchApi.search(q = "beautiful", imageType = "")
         }
     }
 }

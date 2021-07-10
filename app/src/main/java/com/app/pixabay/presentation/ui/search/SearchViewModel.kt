@@ -1,5 +1,6 @@
 package com.app.pixabay.presentation.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +24,7 @@ class SearchViewModel @Inject constructor(
     fun searchImage() = viewModelScope.launch {
         searchInteractors.searchInteractor.searchImage()
             .collect {
+                Log.i("search_resp_t" , "searchImage: $it")
                 _searchImageLiveData.postValue(it)
             }
     }
