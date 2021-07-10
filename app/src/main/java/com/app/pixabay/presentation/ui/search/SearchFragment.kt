@@ -1,4 +1,4 @@
-package com.app.pixabay.presentation.ui
+package com.app.pixabay.presentation.ui.search
 
 import androidx.fragment.app.Fragment
 import com.app.pixabay.R

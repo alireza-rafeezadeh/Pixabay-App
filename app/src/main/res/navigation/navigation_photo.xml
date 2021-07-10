@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/searchFragment"
         tools:layout="@layout/fragment_search"
-        android:name="com.app.pixabay.presentation.ui.SearchFragment"
+        android:name="com.app.pixabay.presentation.ui.search.SearchFragment"
         android:label="SearchFragment" />
 </navigation>

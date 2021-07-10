@@ -2,7 +2,7 @@ package com.app.pixabay.presentation.di
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
-import com.app.pixabay.presentation.ui.SearchFragment
+import com.app.pixabay.presentation.ui.search.SearchFragment
 import javax.inject.Inject
 
 class AppFragmentFactory @Inject constructor() :
