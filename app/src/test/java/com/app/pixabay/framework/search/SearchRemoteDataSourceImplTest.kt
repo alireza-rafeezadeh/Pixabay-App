@@ -6,7 +6,8 @@ import com.app.pixabay.mockdata.SearchMockData
 import com.app.pixabay.presentation.ui.AppCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,16 +29,15 @@ class SearchRemoteDataSourceImplTest {
     }
 
     @Test
-    fun search() {
-        searchRemoteDataSource.search().also { response ->
-            assertThat(response)
-                .isEqualTo(
-                    flowOf(
+    fun search2() = runBlocking {
+        searchRemoteDataSource.search()
+            .collect {
+                assertThat(it)
+                    .isEqualTo(
                         ResultWrapper.Success(
                             SearchMockData.getSearchMockResponse()
                         )
                     )
-                )
-        }
+            }
     }
 }

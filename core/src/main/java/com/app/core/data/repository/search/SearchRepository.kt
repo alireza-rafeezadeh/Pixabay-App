@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface SearchRepository {
-    fun search() : Flow<ResultWrapper<SearchResponse>>
+    suspend fun search() : Flow<ResultWrapper<SearchResponse>>
 }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flowOf
 
 
 class FakeSearchRepository : SearchRepository {
-    override fun search(): Flow<ResultWrapper<SearchResponse>> {
+    override suspend fun search(): Flow<ResultWrapper<SearchResponse>> {
         return flowOf(ResultWrapper.Success(SearchResponse(emptyList(),0,0)))
     }
 }
