@@ -1,4 +1,4 @@
-package com.app.core.interactor.search
+package com.app.core.mockdata.search
 
 import com.app.core.domain.search.SearchResponse
 
