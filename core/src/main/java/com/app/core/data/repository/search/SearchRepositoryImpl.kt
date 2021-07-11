@@ -9,7 +9,7 @@ import javax.inject.Inject
 class SearchRepositoryImpl @Inject constructor(
     val searchRemoteDataSource: SearchRemoteDataSource
 ) : SearchRepository {
-    override suspend fun search(): Flow<ResultWrapper<SearchResponse>> {
-        return searchRemoteDataSource.search()
+    override suspend fun search(searchQuery: String): Flow<ResultWrapper<SearchResponse>> {
+        return searchRemoteDataSource.search(searchQuery)
     }
 }

@@ -30,9 +30,9 @@ class SearchInteractorTest {
     }
 
     @Test
-    fun searchImage() = runBlockingTest {
+    fun `search image should return success`() = runBlockingTest {
         val expectedResponse = SearchMockData.getSearchMockResponse()
-        searchInteractor.searchImage()
+        searchInteractor.searchImage("text to search")
             .collect {
                 assertThat(it)
                     .isEqualTo(

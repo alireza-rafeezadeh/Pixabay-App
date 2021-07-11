@@ -2,9 +2,11 @@ package com.app.pixabay.presentation.ui.search
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.app.core.domain.ResultWrapper
+import com.app.core.domain.search.Hit
 import com.app.core.domain.search.SearchResponse
 import com.app.core.interactor.search.SearchInteractor
 import com.app.core.interactor.search.SearchInteractors
+import com.app.pixabay.mockdata.SearchMockData
 import com.app.pixabay.presentation.ui.AppCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,8 +32,9 @@ class SearchViewModelTest {
 
     @Test
     fun `search image should return success`() {
-        viewModel.searchImage()
-        SearchResponse(emptyList(), 0, 0).also { expectedResp ->
+        viewModel.searchImage("test text")
+//        val expectedResponse = SearchMockData.getFilledSearchMockResponse()
+        SearchMockData.getFilledSearchMockResponse().also { expectedResp ->
             assertThat(viewModel.searchImageLiveData.value)
                 .isEqualTo(ResultWrapper.Success(expectedResp))
         }

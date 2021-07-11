@@ -28,8 +28,8 @@ class SearchViewModel @Inject constructor(
     private var _searchImageLiveData = MutableLiveData<ResultWrapper<SearchResponse>>()
     val searchImageLiveData: LiveData<ResultWrapper<SearchResponse>> = _searchImageLiveData
 
-    fun searchImage() = viewModelScope.launch {
-        searchInteractors.searchInteractor.searchImage()
+    fun searchImage(searchQuery : String) = viewModelScope.launch {
+        searchInteractors.searchInteractor.searchImage(searchQuery)
 //            .catch {
 //                _searchImageLiveData.postValue(ResultWrapper.ErrorString(it.message ?: ""))
 //            }
@@ -41,7 +41,7 @@ class SearchViewModel @Inject constructor(
                 }
             }
             .collect {
-                Log.i("search_resp_t", "searchImage: $it")
+//                Log.i("search_resp_t", "searchImage: $it")
                 _searchImageLiveData.postValue(it)
             }
     }

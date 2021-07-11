@@ -11,9 +11,9 @@ import javax.inject.Inject
 class SearchRemoteDataSourceImpl @Inject constructor(
     private val searchApi: SearchApi
 ) : BaseDataSource(), SearchRemoteDataSource {
-    override suspend fun search(): Flow<ResultWrapper<SearchResponse>> {
+    override suspend fun search(searchQuery: String): Flow<ResultWrapper<SearchResponse>> {
         return flowOnIO {
-            searchApi.search(q = "Katy", imageType = "")
+            searchApi.search(q = searchQuery, imageType = "photo")
         }
     }
 }

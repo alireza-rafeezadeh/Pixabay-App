@@ -29,18 +29,19 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.searchImage()
+//        viewModel.searchImage()
         observeInFragment()
-        addTextChangeLIstener()
+        addTextChangeListener()
     }
 
-    private fun addTextChangeLIstener() {
+    private fun addTextChangeListener() {
         binding.editTextTextPersonName
             .textChanges()
             .debounce(400)
             .filter { it?.isNotBlank() == true }
             .onEach {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                viewModel.searchImage(it.toString())
             }
             .launchIn(lifecycleScope)
     }
