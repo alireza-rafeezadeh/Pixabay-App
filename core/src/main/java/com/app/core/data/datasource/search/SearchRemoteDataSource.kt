@@ -5,5 +5,5 @@ import com.app.core.domain.search.SearchResponse
 import kotlinx.coroutines.flow.Flow
 
 interface SearchRemoteDataSource {
-    suspend fun search() : Flow<ResultWrapper<SearchResponse>>
+    suspend fun search(searchQuery: String) : Flow<ResultWrapper<SearchResponse>>
 }

@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 
 class SearchInteractor @Inject constructor(private val searchRepository: SearchRepository) {
-    suspend fun searchImage() : Flow<ResultWrapper<SearchResponse>> {
-        return searchRepository.search()
+    suspend fun searchImage(searchQuery : String) : Flow<ResultWrapper<SearchResponse>> {
+        return searchRepository.search(searchQuery)
     }
 }

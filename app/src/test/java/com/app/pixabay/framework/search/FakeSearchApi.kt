@@ -11,9 +11,16 @@ class FakeSearchApi : SearchApi {
     override suspend fun search(
         key: String,
         q: String,
-        imageType: String,
-        page: String
+        imageType: String
     ): Response<SearchResponse> {
         return Response.success(SearchMockData.getSearchMockResponse())
     }
+//    override suspend fun search(
+//        key: String,
+//        q: String,
+//        imageType: String,
+//        page: String
+//    ): Response<SearchResponse> {
+//        return Response.success(SearchMockData.getSearchMockResponse())
+//    }
 }

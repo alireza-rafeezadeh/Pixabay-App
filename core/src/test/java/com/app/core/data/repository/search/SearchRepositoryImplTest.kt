@@ -30,7 +30,7 @@ class SearchRepositoryImplTest {
     @Test
     fun search() = runBlockingTest {
         val expectedResponse = SearchMockData.getSearchMockResponse()
-        searchRepository.search()
+        searchRepository.search("text to search")
             .collect {
                 Truth.assertThat(it)
                     .isEqualTo(
