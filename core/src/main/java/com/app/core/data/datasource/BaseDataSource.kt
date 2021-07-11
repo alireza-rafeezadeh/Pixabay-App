@@ -11,6 +11,7 @@ open class BaseDataSource {
     suspend fun <T : Any> flowOnIO(api: suspend () -> Response<T>) =
         flow {
             try {
+                emit(ResultWrapper.InProgress)
                 val response = api.invoke()
                 if (response.isSuccessful) {
                     response.body()?.let {

@@ -2,15 +2,26 @@ package com.app.pixabay.presentation.ui.search
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.app.pixabay.R
 import com.app.pixabay.databinding.FragmentSearchBinding
 import com.app.pixabay.presentation.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.app.core.domain.ResultWrapper
 import com.app.core.domain.search.SearchResponse
+import com.app.core.util.textChanges
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private val binding by viewBinding(FragmentSearchBinding::bind)
@@ -20,6 +31,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.searchImage()
         observeInFragment()
+        addTextChangeLIstener()
+    }
+
+    private fun addTextChangeLIstener() {
+        binding.editTextTextPersonName
+            .textChanges()
+            .debounce(400)
+            .filter { it?.isNotBlank() == true }
+            .onEach {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+            .launchIn(lifecycleScope)
     }
 
     private fun observeInFragment() {
@@ -30,7 +53,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     initRecyclerView(it.data)
                 }
                 is ResultWrapper.ErrorString -> {
-
+                    Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT).show()
                 }
                 is ResultWrapper.InProgress -> {
 

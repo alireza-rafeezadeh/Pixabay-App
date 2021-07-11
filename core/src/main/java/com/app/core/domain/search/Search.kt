@@ -7,8 +7,9 @@ data class SearchResponse(
     val totalHits: Int
 )
 
+//TODO: remove additional fields which are not used
 data class Hit(
-    val collections: Int,
+    val collections: Int?,
     val comments: Int,
     val downloads: Int,
     val id: Int,
