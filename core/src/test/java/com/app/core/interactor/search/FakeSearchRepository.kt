@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.flowOf
 
 class FakeSearchRepository : SearchRepository {
     override suspend fun search(searchQuery : String): Flow<ResultWrapper<SearchResponse>> {
-        return flowOf(ResultWrapper.Success(SearchResponse(emptyList(),0,0)))
+        return flowOf(ResultWrapper.Success(SearchMockData.getSearchMockResponse()))
     }
 
     override fun getSearchResultStream(query: String): Flow<PagingData<Hit>> {
