@@ -22,7 +22,7 @@ class SearchPagingSourceTest {
 
     lateinit var searchRemoteSDataSource: SearchRemoteDataSource
 
-    val mockPosts = SearchMockData.getLongSearchList()
+    val mockResponse = SearchMockData.getLongSearchList()
 
     @Before
     fun setUp() {
@@ -41,7 +41,7 @@ class SearchPagingSourceTest {
                 placeholdersEnabled = false
             )
         )).isEqualTo(PagingSource.LoadResult.Page(
-            data = listOf(mockPosts[0], mockPosts[1]),
+            data = listOf(mockResponse[0], mockResponse[1]),
             prevKey = null,
             nextKey = 2
         ))
