@@ -6,6 +6,7 @@ private const val arch_version = "2.1.0"
 private const val lifecycle_version = "2.2.0"
 private const val nav_version = "2.3.2"
 private const val glide_version = "4.12.0"
+private const val espresso_version = "3.4.0"
 
 object KotlinDependencies {
     val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -36,7 +37,9 @@ object TestDependencies {
     val navigation_testing = "androidx.navigation:navigation-testing:$nav_version"
     val coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     val androidx_test_ext_jUnit = "androidx.test.ext:junit:1.1.3"
-    val espresso_core = "androidx.test.espresso:espresso-core:3.4.0"
+    val espresso_core = "androidx.test.espresso:espresso-core:$espresso_version"
+    val espresso_contrib = "androidx.test.espresso:espresso-contrib:3.1.0"
+    val espresso_intents = "androidx.test.espresso:espresso-intents:3.1.0"
     val hilt_tesiting = "com.google.dagger:hilt-android-testing:2.35"
 }
 
