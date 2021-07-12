@@ -17,6 +17,7 @@ object GradleDependencies {
     val build_gradle = "com.android.tools.build:gradle:4.2.2"
     val kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     val hilt_android_gradle_plugin = "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+    val navigaiton_safe_args ="androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 }
 
 object AndroidXDependencies {
