@@ -60,4 +60,7 @@ dependencies {
     androidTestImplementation(TestDependencies.espresso_core)
     androidTestImplementation(TestDependencies.androidx_truth)
     androidTestImplementation(TestDependencies.google_truth)
+
+    def paging_version = "3.0.0"
+    api("androidx.paging:paging-runtime-ktx:$paging_version")
 }
