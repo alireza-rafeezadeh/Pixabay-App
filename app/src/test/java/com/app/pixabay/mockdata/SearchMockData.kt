@@ -9,8 +9,19 @@ object SearchMockData {
     fun getFilledSearchMockResponse(): SearchResponse {
         val hit = Hit(
             0, 1, 123, 12, 100, "testUrl",
-            200, "previewUrl", "user", 500
+            200, "previewUrl", "user", "user", 500
         )
-        return SearchResponse(listOf(hit, hit), 2,2)
+        return SearchResponse(listOf(hit, hit), 2, 2)
     }
+
+    fun getSearchList() = item
+
+
+    val item =listOf(
+    Hit(
+    0, 1, 123, 12, 100, "testUrl",
+    200, "previewUrl", "user", "user", 500
+    )
+    )
+
 }
