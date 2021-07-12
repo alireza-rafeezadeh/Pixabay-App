@@ -6,12 +6,9 @@ import com.app.pixabay.mockdata.SearchMockData
 import com.app.pixabay.presentation.ui.AppCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -34,7 +31,7 @@ class SearchRemoteDataSourceImplTest {
 
     @Test
     fun search() = runBlocking {
-        val flow = searchRemoteDataSource.search("text to search")
+        val flow = searchRemoteDataSource.search("text to search","1")
         // The first one is ResultWrapper.InProgress
         flow.drop(1)
             .collect {
