@@ -11,7 +11,15 @@ interface SearchApi {
     suspend fun search(
         @Query("key") key: String = BuildConfig.API_KEY,
         @Query("q") q: String,
-        @Query("image_type") imageType: String
-//        @Query("page") page: String
+        @Query("image_type") imageType: String,
+        @Query("page") page: String
+    ): Response<SearchResponse>
+
+    @GET("api")
+    suspend fun searchWithPaging(
+        @Query("key") key: String = BuildConfig.API_KEY,
+        @Query("q") q: String,
+//        @Query("image_type") imageType: String,
+        @Query("page") page: String
     ): Response<SearchResponse>
 }
