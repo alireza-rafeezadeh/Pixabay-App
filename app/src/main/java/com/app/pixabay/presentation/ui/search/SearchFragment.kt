@@ -6,19 +6,20 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.app.pixabay.R
-import com.app.pixabay.databinding.FragmentSearchBinding
-import com.app.pixabay.presentation.util.viewBinding
-import dagger.hilt.android.AndroidEntryPoint
 import com.app.core.domain.ResultWrapper
 import com.app.core.domain.search.SearchResponse
 import com.app.core.util.textChanges
+import com.app.pixabay.R
+import com.app.pixabay.databinding.FragmentSearchBinding
+import com.app.pixabay.presentation.ui.search.paging.SearchComparator
+import com.app.pixabay.presentation.ui.search.paging.SearchPagingAdapter
+import com.app.pixabay.presentation.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 @FlowPreview
 @ExperimentalCoroutinesApi
@@ -26,13 +27,19 @@ import kotlinx.coroutines.flow.onEach
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private val binding by viewBinding(FragmentSearchBinding::bind)
     private val viewModel: SearchViewModel by viewModels()
+    private lateinit var pagingAdapter: SearchPagingAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        viewModel.searchImage()
+        pagingAdapter = SearchPagingAdapter(SearchComparator)
+        binding.searchRecyclerView.adapter = pagingAdapter
+
         observeInFragment()
         addTextChangeListener()
     }
+
+    private var searchJob: Job? = null
 
     private fun addTextChangeListener() {
         binding.editTextTextPersonName
@@ -41,7 +48,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             .filter { it?.isNotBlank() == true }
             .onEach {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                viewModel.searchImage(it.toString())
+//                viewModel.searchImage(it.toString())
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    viewModel.searchWithPaging(it.toString()).collectLatest { pagingData ->
+                        pagingAdapter.submitData(pagingData)
+                    }
+                }
             }
             .launchIn(lifecycleScope)
     }
@@ -51,7 +64,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
             when (it) {
                 is ResultWrapper.Success -> {
-                    initRecyclerView(it.data)
+//                    initRecyclerView(it.data)
                 }
                 is ResultWrapper.ErrorString -> {
                     Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT).show()
@@ -62,6 +75,19 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
         })
+
+
+
+
+//        lifecycleScope.launch {
+////            viewModel.currentSearchResult?.collectLatest { pagingData ->
+////                pagingAdapter.submitData(pagingData)
+////            }
+//            viewModel.searchWithPaging("Beauty").collectLatest { pagingData ->
+//                pagingAdapter.submitData(pagingData)
+//            }
+//        }
+
     }
 
     private fun initRecyclerView(data: SearchResponse) {

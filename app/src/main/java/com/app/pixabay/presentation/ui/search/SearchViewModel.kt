@@ -1,22 +1,19 @@
 package com.app.pixabay.presentation.ui.search
 
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import android.widget.EditText
-import androidx.annotation.CheckResult
-import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.app.core.domain.ResultWrapper
+import com.app.core.domain.search.Hit
 import com.app.core.domain.search.SearchResponse
 import com.app.core.interactor.search.SearchInteractors
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,7 +25,7 @@ class SearchViewModel @Inject constructor(
     private var _searchImageLiveData = MutableLiveData<ResultWrapper<SearchResponse>>()
     val searchImageLiveData: LiveData<ResultWrapper<SearchResponse>> = _searchImageLiveData
 
-    fun searchImage(searchQuery : String) = viewModelScope.launch {
+    fun searchImage(searchQuery: String) = viewModelScope.launch {
         searchInteractors.searchInteractor.searchImage(searchQuery)
 //            .catch {
 //                _searchImageLiveData.postValue(ResultWrapper.ErrorString(it.message ?: ""))
@@ -44,6 +41,25 @@ class SearchViewModel @Inject constructor(
 //                Log.i("search_resp_t", "searchImage: $it")
                 _searchImageLiveData.postValue(it)
             }
+    }
+
+    private var currentQueryValue: String? = null
+
+    var currentSearchResult: Flow<PagingData<Hit>>? = null
+
+
+    fun searchWithPaging(queryString: String): Flow<PagingData<Hit>> {
+        val lastResult = currentSearchResult
+        if (queryString == currentQueryValue && lastResult != null) {
+            return lastResult
+        }
+        currentQueryValue = queryString
+
+        val newResult: Flow<PagingData<Hit>> =
+            searchInteractors.searchInteractor.getSearchResultStream(queryString)
+                .cachedIn(viewModelScope)
+        currentSearchResult = newResult
+        return newResult
     }
 }
 
