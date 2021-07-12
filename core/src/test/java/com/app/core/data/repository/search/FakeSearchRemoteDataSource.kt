@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class FakeSearchRemoteDataSource : SearchRemoteDataSource {
-    override suspend fun search(searchQuery: String): Flow<ResultWrapper<SearchResponse>> {
+    override suspend fun search(searchQuery: String, page : String): Flow<ResultWrapper<SearchResponse>> {
         return flowOf(ResultWrapper.Success(SearchMockData.getSearchMockResponse()))
     }
 }
