@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.app.core.domain.ResultWrapper
 import com.app.core.domain.search.SearchResponse
 import com.app.core.util.textChanges
@@ -32,7 +33,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        viewModel.searchImage()
-        pagingAdapter = SearchPagingAdapter(SearchComparator)
+        pagingAdapter = SearchPagingAdapter(SearchComparator) { item ->
+            Toast.makeText(requireContext(), item.toString(), Toast.LENGTH_SHORT).show()
+            SearchFragmentDirections.actionSearchFragmentToDetailFragment(
+                item.largeImageURL,
+                item.user,
+                item.tags
+            ).also {
+                findNavController().navigate(it)
+            }
+        }
         binding.searchRecyclerView.adapter = pagingAdapter
 
         observeInFragment()
@@ -75,8 +85,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
         })
-
-
 
 
 //        lifecycleScope.launch {
