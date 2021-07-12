@@ -16,7 +16,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.app.pixabay.util.AppTestRunner"
     }
 
     buildTypes {
@@ -63,6 +64,8 @@ dependencies {
 
     androidTestImplementation(TestDependencies.androidx_test_ext_jUnit)
     androidTestImplementation(TestDependencies.espresso_core)
+    androidTestImplementation(TestDependencies.espresso_contrib)
+    androidTestImplementation(TestDependencies.espresso_intents)
     androidTestImplementation(TestDependencies.android_test_runner)
     androidTestImplementation(TestDependencies.hilt_tesiting)
     androidTestImplementation(TestDependencies.androidx_truth)
