@@ -12,7 +12,13 @@ import java.io.IOException
 
 class SearchPagingSource(val query : String,val searchRemoteDataSource : SearchRemoteDataSource) : PagingSource<Int,Hit>() {
     override fun getRefreshKey(state: PagingState<Int, Hit>): Int? {
-        TODO("Not yet implemented")
+        // We need to get the previous key (or next key if previous is null) of the page
+        // that was closest to the most recently accessed index.
+        // Anchor position is the most recently accessed index
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+        }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Hit> {
@@ -52,6 +58,8 @@ class SearchPagingSource(val query : String,val searchRemoteDataSource : SearchR
         } catch (exception: IOException) {
             return LoadResult.Error(exception)
         } catch (exception: HttpException) {
+            return LoadResult.Error(exception)
+        } catch (exception : Exception) {
             return LoadResult.Error(exception)
         }
     }
