@@ -22,7 +22,7 @@ data class Hit(
 //    val previewHeight: Int,
     val previewURL: String,
 //    val previewWidth: Int,
-//    val tags: String,
+    val tags: String,
 //    val type: String,
     val user: String,
 //    val userImageURL: String,

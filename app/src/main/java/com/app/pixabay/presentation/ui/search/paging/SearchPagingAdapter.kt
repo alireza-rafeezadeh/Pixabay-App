@@ -10,7 +10,7 @@ import com.app.pixabay.databinding.ItemSearchBinding
 import com.bumptech.glide.Glide
 
 
-class SearchPagingAdapter(diffCallback: DiffUtil.ItemCallback<Hit>) :
+class SearchPagingAdapter(diffCallback: DiffUtil.ItemCallback<Hit>, val onClick : (item : Hit) -> Unit) :
     PagingDataAdapter<Hit, RecyclerView.ViewHolder>(diffCallback) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
@@ -31,6 +31,11 @@ class SearchPagingAdapter(diffCallback: DiffUtil.ItemCallback<Hit>) :
 
     inner class HitViewHolder(private val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                getItem(bindingAdapterPosition)?.let { item -> onClick(item) }
+            }
+        }
         fun bindView(hit: Hit) {
             with(binding) {
                 Glide.with(binding.root).load(hit.previewURL).into(previewImageView)
