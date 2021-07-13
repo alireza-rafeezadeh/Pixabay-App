@@ -25,7 +25,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
@@ -52,26 +51,13 @@ class SearchFragmentIntegrationTest {
     }
 
     @Test
-    fun search_should_display_recycler_view() {
-        onView(withId(R.id.editTextTextPersonName))
-            .perform(typeText("s"), ViewActions.closeSoftKeyboard())
-    }
-
-    @Test
-    fun search_display_image_in_recycler_view() {
-        runBlocking {
-            delay(5000)
-        }
+    fun should_display_recycler_view() {
         onView(withId(R.id.search_recycler_view))
-            .check(
-                matches(
-                    atPosition(0, hasDescendant(withId(R.id.preview_image_view)))
-                )
-            )
+            .check(matches(isDisplayed()))
     }
 
     @Test
-    fun search_display_texts_in_recycler_view() {
+    fun should_display_texts_in_recycler_view_after_default_search() {
         runBlocking {
             delay(5000)
         }
@@ -99,7 +85,7 @@ class SearchFragmentIntegrationTest {
     }
 
     @Test
-    fun should_search_and_scroll_to_position_in_recycler_view() {
+    fun should_search_a_word_and_scroll_to_a_certain_position_in_recycler_view() {
 
         onView(withId(R.id.editTextTextPersonName))
             .perform(clearText())
@@ -111,16 +97,8 @@ class SearchFragmentIntegrationTest {
             delay(5000)
         }
 
-//        onView(withId(R.id.search_recycler_view)).perform(
-//            RecyclerViewActions.actionOnItemAtPosition<SearchPagingAdapter.HitViewHolder>(
-//                0, clickChildViewWithId2(R.id.search_item_root_layout)
-//            )
-//        )
-
         onView(withId(R.id.search_recycler_view))
-            .perform(RecyclerViewActions.scrollToPosition<SearchPagingAdapter.HitViewHolder>(13));
-
-//        intended(IntentMatchers.hasComponent("com.app.pixabay.presentation.ui.detail"))
+            .perform(RecyclerViewActions.scrollToPosition<SearchPagingAdapter.HitViewHolder>(13))
     }
 }
 
