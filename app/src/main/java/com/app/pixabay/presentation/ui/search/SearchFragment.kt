@@ -9,8 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import com.app.core.domain.ResultWrapper
-import com.app.core.domain.search.SearchResponse
 import com.app.core.util.getError
 import com.app.core.util.gone
 import com.app.core.util.textChanges
@@ -38,7 +36,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
+        observeLoadingState()
+        addTextChangeListener()
+    }
 
+    private fun initRecyclerView() {
         pagingAdapter = SearchPagingAdapter(SearchComparator) { item ->
             SearchFragmentDirections.actionSearchFragmentToDetailFragment(
                 item.largeImageURL,
@@ -49,13 +52,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
         binding.searchRecyclerView.adapter = pagingAdapter
-        observeInFragment()
-        addTextChangeListener()
     }
 
-
-
-    private fun addTextChangeListener() {
+    private fun observeLoadingState() {
         lifecycleScope.launch {
             pagingAdapter.loadStateFlow.collectLatest { loadStates ->
                 when (loadStates.refresh) {
@@ -73,14 +72,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 }
             }
         }
+    }
 
+    private fun addTextChangeListener() {
         binding.editTextTextPersonName
             .textChanges()
             .debounce(400)
             .filter { it?.isNotBlank() == true }
             .onEach {
-//                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-//                viewModel.searchImage(it.toString())
                 searchJob?.cancel()
                 searchJob = lifecycleScope.launch {
                     viewModel.searchWithPaging(it.toString())
@@ -93,39 +92,5 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 }
             }
             .launchIn(lifecycleScope)
-    }
-
-    private fun observeInFragment() {
-        viewModel.searchImageLiveData.observe(viewLifecycleOwner, {
-
-            when (it) {
-                is ResultWrapper.Success -> {
-//                    initRecyclerView(it.data)
-                }
-                is ResultWrapper.ErrorString -> {
-                    Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT).show()
-                }
-                is ResultWrapper.InProgress -> {
-
-                }
-            }
-
-        })
-
-
-//        lifecycleScope.launch {
-////            viewModel.currentSearchResult?.collectLatest { pagingData ->
-////                pagingAdapter.submitData(pagingData)
-////            }
-//            viewModel.searchWithPaging("Beauty").collectLatest { pagingData ->
-//                pagingAdapter.submitData(pagingData)
-//            }
-//        }
-
-    }
-
-    private fun initRecyclerView(data: SearchResponse) {
-        val adapter = SearchRVAdapter(data.hits)
-        binding.searchRecyclerView.adapter = adapter
     }
 }
