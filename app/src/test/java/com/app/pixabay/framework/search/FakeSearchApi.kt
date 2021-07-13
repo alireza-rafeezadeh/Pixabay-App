@@ -15,20 +15,4 @@ class FakeSearchApi : SearchApi {
     ): Response<SearchResponse> {
         return Response.success(SearchMockData.getSearchMockResponse())
     }
-
-    override suspend fun searchWithPaging(
-        key: String,
-        q: String,
-        page: String
-    ): Response<SearchResponse> {
-        return Response.success(SearchMockData.getSearchMockResponse())
-    }
-//    override suspend fun search(
-//        key: String,
-//        q: String,
-//        imageType: String
-//    ): Response<SearchResponse> {
-//        return Response.success(SearchMockData.getSearchMockResponse())
-//    }
-
 }

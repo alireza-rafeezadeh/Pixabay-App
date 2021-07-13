@@ -1,7 +1,6 @@
 package com.app.pixabay.presentation.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -60,7 +59,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 when (loadStates.refresh) {
                     is LoadState.Error -> {
                         loadStates.getError().also { error ->
-                            Toast.makeText(requireContext(), error ?: "", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(), error ?: "", Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                     is LoadState.Loading -> {
@@ -83,9 +84,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 searchJob?.cancel()
                 searchJob = lifecycleScope.launch {
                     viewModel.searchWithPaging(it.toString())
-                        .catch {
-                            Log.i("a_t_c_l_exc", "addTextChangeListener: ")
-                        }
                         .collectLatest { pagingData ->
                             pagingAdapter.submitData(pagingData)
                         }

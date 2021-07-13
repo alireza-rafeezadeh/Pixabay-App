@@ -2,7 +2,6 @@ package com.app.pixabay.presentation.ui.search
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.*
-import com.app.core.domain.ResultWrapper
 import com.app.core.interactor.search.SearchInteractor
 import com.app.core.interactor.search.SearchInteractors
 import com.app.pixabay.mockdata.SearchMockData
@@ -31,17 +30,6 @@ class SearchViewModelTest {
     fun setUp() {
         viewModel = SearchViewModel(SearchInteractors(SearchInteractor(FakeSearchRepository())))
     }
-
-    @Test
-    fun `search image should return success`() {
-        viewModel.searchImage("test text")
-//        val expectedResponse = SearchMockData.getFilledSearchMockResponse()
-        SearchMockData.getFilledSearchMockResponse().also { expectedResp ->
-            assertThat(viewModel.searchImageLiveData.value)
-                .isEqualTo(ResultWrapper.Success(expectedResp))
-        }
-    }
-
 
     @Test
     fun `search image with paging should return success`() = runBlocking {

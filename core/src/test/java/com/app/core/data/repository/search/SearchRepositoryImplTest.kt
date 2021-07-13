@@ -1,16 +1,10 @@
 package com.app.core.data.repository.search
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.app.core.domain.ResultWrapper
 import com.app.core.interactor.MainCoroutineRule
-import com.app.core.mockdata.search.SearchMockData
-import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class SearchRepositoryImplTest {
@@ -27,18 +21,6 @@ class SearchRepositoryImplTest {
         searchRepository = SearchRepositoryImpl(FakeSearchRemoteDataSource())
     }
 
-    //todo: remove this function
-    @Test
-    fun search() = runBlockingTest {
-        val expectedResponse = SearchMockData.getSearchMockResponse()
-        searchRepository.search("text to search")
-            .collect {
-                Truth.assertThat(it)
-                    .isEqualTo(
-                        ResultWrapper.Success(expectedResponse)
-                    )
-            }
-    }
 
     //TODO: this test doesn't pass yet
     /*

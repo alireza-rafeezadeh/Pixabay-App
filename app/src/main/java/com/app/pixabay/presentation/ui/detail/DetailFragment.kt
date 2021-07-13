@@ -21,11 +21,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun initViews() {
-        if (args.toBundle() == null)
-            return
         Glide.with(requireContext()).load(args.largeImageUrl).into(binding.userImageView)
         binding.userTextView.text = args.userName
         binding.tagsTextView.text = args.tags
-
     }
 }

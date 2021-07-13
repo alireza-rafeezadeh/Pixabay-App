@@ -49,5 +49,4 @@ class DetailFragmentUITest {
         onView(withId(R.id.user_image_view))
             .check(ViewAssertions.matches(isDisplayed()))
     }
-
 }
