@@ -6,7 +6,8 @@ import com.app.core.interactor.MainCoroutineRule
 import com.app.core.mockdata.search.SearchMockData
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -26,16 +27,39 @@ class SearchRepositoryImplTest {
         searchRepository = SearchRepositoryImpl(FakeSearchRemoteDataSource())
     }
 
+    //todo: remove this function
     @Test
-    fun search() {
+    fun search() = runBlockingTest {
         val expectedResponse = SearchMockData.getSearchMockResponse()
-        searchRepository.search().also {
-            Truth.assertThat(it)
-                .isEqualTo(
-                    flowOf(
+        searchRepository.search("text to search")
+            .collect {
+                Truth.assertThat(it)
+                    .isEqualTo(
                         ResultWrapper.Success(expectedResponse)
                     )
-                )
-        }
+            }
     }
+
+    //TODO: this test doesn't pass yet
+    /*
+    @Test
+    fun `should search with pagination return success`() = runBlocking {
+        val expectedResponse = SearchMockData.getSearchMockResponse()
+        searchRepository.getSearchResultStream("text to search")
+            .catch {
+                Log.i("<<TAG>>", "should search with pagination return success: ")
+            }
+            .collectLatest { pagingData ->
+//                Truth.assertThat(pagingData)
+//                    .isEqualTo(
+//                        ResultWrapper.Success(expectedResponse)
+//                    )
+//
+                pagingData.collectData()
+                    .also { list ->
+                        Truth.assertThat(list)
+                            .isEqualTo(SearchMockData.getSearchList())
+                    }
+            }
+    }*/
 }

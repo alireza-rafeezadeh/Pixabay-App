@@ -1,12 +1,13 @@
 package com.app.core.interactor.search
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.app.core.domain.ResultWrapper
 import com.app.core.interactor.MainCoroutineRule
 import com.app.core.mockdata.search.SearchMockData
+import com.app.core.util.collectData
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,17 +29,28 @@ class SearchInteractorTest {
         searchInteractor = SearchInteractor(FakeSearchRepository())
     }
 
-    @Test
-    fun searchImage() {
-        val expectedResponse = SearchMockData.getSearchMockResponse()
-        searchInteractor.searchImage().also {
-            assertThat(it)
-                .isEqualTo(
-                    flowOf(
-                        ResultWrapper.Success(expectedResponse)
-                    )
-                )
-        }
+//    @Test
+//    fun `search image should return success`() = runBlockingTest {
+//        val expectedResponse = SearchMockData.getSearchMockResponse()
+//        searchInteractor.searchImage("text to search")
+//            .collect {
+//                assertThat(it)
+//                    .isEqualTo(
+//                        ResultWrapper.Success(expectedResponse)
+//                    )
+//            }
+//    }
 
+    @Test
+    fun `search image should return success2`() = runBlockingTest {
+        val expectedResponse = SearchMockData.getSearchMockResponse()
+        searchInteractor.getSearchResultStream("text to search")
+            .collectLatest { pagingData ->
+                pagingData.collectData()
+                    .also { list ->
+                        assertThat(list)
+                            .isEqualTo(SearchMockData.getSearchList())
+                    }
+            }
     }
 }
