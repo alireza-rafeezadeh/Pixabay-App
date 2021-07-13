@@ -21,14 +21,12 @@ class SearchPagingSourceTest {
     var mainCoroutineRule = MainCoroutineRule()
 
     lateinit var searchRemoteSDataSource: SearchRemoteDataSource
-
-    val mockResponse = SearchMockData.getLongSearchList()
+    private val mockResponse = SearchMockData.getLongSearchList()
 
     @Before
     fun setUp() {
         searchRemoteSDataSource = FakeSearchRemoteDataSource()
     }
-
 
     @Test
     fun loadReturnsPageWhenOnSuccessfulLoadOfItemKeyedData() = runBlockingTest {
