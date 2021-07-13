@@ -2,9 +2,10 @@ package com.app.core.util
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.EditText
 import androidx.annotation.CheckResult
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -31,3 +32,7 @@ fun EditText.textChanges(): Flow<CharSequence?> {
         awaitClose { removeTextChangedListener(listener) }
     }.onStart { emit(text) }
 }
+
+
+fun CombinedLoadStates.getError() = (this.refresh as LoadState.Error).error.message
+

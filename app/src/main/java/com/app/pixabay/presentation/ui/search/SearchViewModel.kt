@@ -1,5 +1,6 @@
 package com.app.pixabay.presentation.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,7 @@ import com.app.core.domain.search.SearchResponse
 import com.app.core.interactor.search.SearchInteractors
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
@@ -57,6 +59,9 @@ class SearchViewModel @Inject constructor(
 
         val newResult: Flow<PagingData<Hit>> =
             searchInteractors.searchInteractor.getSearchResultStream(queryString)
+                .catch {
+                    Log.i("s_w_p_exception", "searchWithPaging: " + it.message)
+                }
                 .cachedIn(viewModelScope)
         currentSearchResult = newResult
         return newResult

@@ -28,6 +28,7 @@ class SearchRepositoryImpl @Inject constructor(
     }
 
     companion object {
+        // TODO:
         private const val NETWORK_PAGE_SIZE = 50
     }
 }
