@@ -32,6 +32,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val viewModel: SearchViewModel by viewModels()
     private lateinit var pagingAdapter: SearchPagingAdapter
     private var searchJob: Job? = null
+    private var loadingJob: Job? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +55,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun observeLoadingState() {
-        lifecycleScope.launch {
+        loadingJob = lifecycleScope.launch {
             pagingAdapter.loadStateFlow.collectLatest { loadStates ->
                 when (loadStates.refresh) {
                     is LoadState.Error -> {
@@ -90,5 +91,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 }
             }
             .launchIn(lifecycleScope)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        loadingJob?.cancel()
     }
 }
