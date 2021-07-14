@@ -59,6 +59,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             pagingAdapter.loadStateFlow.collectLatest { loadStates ->
                 when (loadStates.refresh) {
                     is LoadState.Error -> {
+                        binding.searchProgressBar.gone()
                         loadStates.getError().also { error ->
                             Toast.makeText(
                                 requireContext(), error ?: "", Toast.LENGTH_SHORT
