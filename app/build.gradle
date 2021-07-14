@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -13,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.app.pixabay.util.AppTestRunner"
     }
 
     buildTypes {
@@ -29,16 +32,45 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
+    implementation(project(":core"))
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation AndroidXDependencies.constraintlayout
+
+    implementation(JetpackDependencies.hilt_android)
+    kapt(JetpackDependencies.hilt_compiler)
+    implementation(JetpackDependencies.viewmodel)
+    implementation(JetpackDependencies.livedata)
+    implementation(JetpackDependencies.viewmodel_saved_state)
+    kapt(JetpackDependencies.lifecycle_compiler)
+    implementation(JetpackDependencies.lifecycle_compiler_java_8)
+    implementation(JetpackDependencies.navigaiton_fragment)
+    implementation(JetpackDependencies.navigaiton_ui)
+
+    implementation(GlideDependencies.glide)
+    annotationProcessor(GlideDependencies.glide_compiler)
+
+    testImplementation(TestDependencies.jUnit)
+    testImplementation(TestDependencies.androidx_core_testing)
+    testImplementation(TestDependencies.androidx_truth)
+    testImplementation(TestDependencies.google_truth)
+    testImplementation(TestDependencies.coroutines_test)
+
+    androidTestImplementation(TestDependencies.androidx_test_ext_jUnit)
+    androidTestImplementation(TestDependencies.espresso_core)
+    androidTestImplementation(TestDependencies.espresso_contrib)
+    androidTestImplementation(TestDependencies.espresso_intents)
+    androidTestImplementation(TestDependencies.android_test_runner)
+    androidTestImplementation(TestDependencies.hilt_tesiting)
+    androidTestImplementation(TestDependencies.androidx_truth)
+    androidTestImplementation(TestDependencies.google_truth)
+    androidTestImplementation(TestDependencies.navigation_testing)
+    kaptAndroidTest(JetpackDependencies.hilt_android_compiler)
 }
+
+apply from: "../ktlint.gradle"
