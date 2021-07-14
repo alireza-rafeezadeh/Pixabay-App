@@ -7,6 +7,7 @@ private const val lifecycle_version = "2.2.0"
 private const val nav_version = "2.3.2"
 private const val glide_version = "4.12.0"
 private const val espresso_version = "3.4.0"
+private const val paging_version = "3.0.0"
 
 object KotlinDependencies {
     val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -26,6 +27,7 @@ object AndroidXDependencies {
     val appcompat = "androidx.appcompat:appcompat:1.3.0"
     val material = "com.google.android.material:material:1.4.0"
     val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
+    val paging = "androidx.paging:paging-runtime-ktx:$paging_version"
 }
 
 object TestDependencies {

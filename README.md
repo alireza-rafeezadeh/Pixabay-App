@@ -3,6 +3,7 @@
 
 ## General
 Android Studio 4.2.2 and Java 8 were used to build this app.
+This app is for android devices
 
 
 <img src="docs/main_page.jpg" width="300" />
