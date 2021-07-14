@@ -10,7 +10,8 @@ import com.app.pixabay.databinding.ItemSearchBinding
 import com.bumptech.glide.Glide
 
 class SearchPagingAdapter(
-    diffCallback: DiffUtil.ItemCallback<Hit>, val onClick: (item: Hit) -> Unit
+    diffCallback: DiffUtil.ItemCallback<Hit>,
+    val onClick: (item: Hit) -> Unit
 ) :
     PagingDataAdapter<Hit, RecyclerView.ViewHolder>(diffCallback) {
 

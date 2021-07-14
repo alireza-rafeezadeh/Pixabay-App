@@ -5,7 +5,6 @@ import com.app.core.domain.search.SearchResponse
 import com.app.pixabay.mockdata.SearchMockData
 import retrofit2.Response
 
-
 class FakeSearchApi : SearchApi {
     override suspend fun search(
         key: String,

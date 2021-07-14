@@ -1,7 +1,11 @@
 package com.app.pixabay.presentation.ui.search
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.paging.*
+import androidx.paging.CombinedLoadStates
+import androidx.paging.DifferCallback
+import androidx.paging.NullPaddedList
+import androidx.paging.PagingData
+import androidx.paging.PagingDataDiffer
 import com.app.core.interactor.search.SearchInteractor
 import com.app.core.interactor.search.SearchInteractors
 import com.app.pixabay.mockdata.SearchMockData
@@ -43,8 +47,6 @@ class SearchViewModelTest {
             }
     }
 }
-
-
 
 // todo: https://stackoverflow.com/questions/66503911/unit-testing-a-repository-with-paging-3-using-a-a-remote-mediator-and-paging-sou/66686920#66686920
 @ExperimentalCoroutinesApi

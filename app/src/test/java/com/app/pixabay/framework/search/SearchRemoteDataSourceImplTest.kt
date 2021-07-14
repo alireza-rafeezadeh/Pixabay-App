@@ -31,7 +31,7 @@ class SearchRemoteDataSourceImplTest {
 
     @Test
     fun search() = runBlocking {
-        val flow = searchRemoteDataSource.search("text to search","1")
+        val flow = searchRemoteDataSource.search("text to search", "1")
         // The first one is ResultWrapper.InProgress so we must drop the first one
         flow.drop(1)
             .collect {

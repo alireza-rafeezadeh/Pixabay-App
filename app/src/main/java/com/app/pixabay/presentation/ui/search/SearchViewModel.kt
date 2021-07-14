@@ -11,8 +11,8 @@ import com.app.core.domain.search.Hit
 import com.app.core.domain.search.SearchResponse
 import com.app.core.interactor.search.SearchInteractors
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(

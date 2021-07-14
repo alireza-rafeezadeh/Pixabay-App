@@ -20,5 +20,4 @@ object SearchMockData {
             200, "previewUrl", "user", "user", 500
         )
     )
-
 }
