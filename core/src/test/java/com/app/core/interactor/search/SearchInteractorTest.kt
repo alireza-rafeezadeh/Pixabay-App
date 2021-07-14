@@ -12,7 +12,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-
 @ExperimentalCoroutinesApi
 class SearchInteractorTest {
 
@@ -29,21 +28,8 @@ class SearchInteractorTest {
         searchInteractor = SearchInteractor(FakeSearchRepository())
     }
 
-//    @Test
-//    fun `search image should return success`() = runBlockingTest {
-//        val expectedResponse = SearchMockData.getSearchMockResponse()
-//        searchInteractor.searchImage("text to search")
-//            .collect {
-//                assertThat(it)
-//                    .isEqualTo(
-//                        ResultWrapper.Success(expectedResponse)
-//                    )
-//            }
-//    }
-
     @Test
-    fun `search image should return success2`() = runBlockingTest {
-        val expectedResponse = SearchMockData.getSearchMockResponse()
+    fun `search image should return success`() = runBlockingTest {
         searchInteractor.getSearchResultStream("text to search")
             .collectLatest { pagingData ->
                 pagingData.collectData()

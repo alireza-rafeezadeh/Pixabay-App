@@ -1,36 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/amour">
 
-    <ImageView
-        android:id="@+id/user_image_view"
-        android:layout_width="376dp"
-        android:layout_height="250dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="19dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/user_image_view"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="@dimen/app_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/app_margin"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/user_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="@+id/user_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/user_image_view"
-        tools:text="User Name" />
+        <TextView
+            android:id="@+id/user_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/calibri"
+            android:textColor="@color/dove_gray"
+            app:layout_constraintStart_toStartOf="@+id/user_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/user_image_view"
+            tools:text="User Name" />
 
-    <TextView
-        android:id="@+id/tags_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        tools:text="tags"
-        app:layout_constraintStart_toStartOf="@+id/user_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/user_text_view" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tags_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="70dp"
+            android:fontFamily="@font/calibri"
+            android:textColor="@color/silver_chalice"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/user_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/user_text_view"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="tags" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

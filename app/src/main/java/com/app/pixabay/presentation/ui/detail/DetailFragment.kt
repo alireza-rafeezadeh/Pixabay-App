@@ -8,8 +8,9 @@ import com.app.pixabay.R
 import com.app.pixabay.databinding.FragmentDetailBinding
 import com.app.pixabay.presentation.util.viewBinding
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val binding by viewBinding(FragmentDetailBinding::bind)
     val args: DetailFragmentArgs by navArgs()

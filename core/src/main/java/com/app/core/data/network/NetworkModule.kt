@@ -16,7 +16,7 @@ import javax.inject.Singleton
 class NetworkModule {
     @Provides
     @Singleton
-    fun provideRetrofit(mosh: Moshi) = Retrofit.Builder()
+    fun provideRetrofit(mosh: Moshi): Retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create(mosh))
         .baseUrl(BASE_URL)
         .build()

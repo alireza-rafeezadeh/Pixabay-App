@@ -9,25 +9,24 @@ import com.app.core.domain.search.Hit
 import com.app.pixabay.databinding.ItemSearchBinding
 import com.bumptech.glide.Glide
 
-
-class SearchPagingAdapter(diffCallback: DiffUtil.ItemCallback<Hit>, val onClick : (item : Hit) -> Unit) :
+class SearchPagingAdapter(
+    diffCallback: DiffUtil.ItemCallback<Hit>,
+    val onClick: (item: Hit) -> Unit
+) :
     PagingDataAdapter<Hit, RecyclerView.ViewHolder>(diffCallback) {
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        val item = getItem(position)
-        item?.let {
-            (holder as HitViewHolder).bindView(it)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        ItemSearchBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        ).let {
+            HitViewHolder(it)
         }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        getItem(position)?.let {
+            (holder as HitViewHolder).bindView(it)
+        }
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = ItemSearchBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-        return HitViewHolder(binding)
-    }
-
 
     inner class HitViewHolder(private val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -36,6 +35,7 @@ class SearchPagingAdapter(diffCallback: DiffUtil.ItemCallback<Hit>, val onClick 
                 getItem(bindingAdapterPosition)?.let { item -> onClick(item) }
             }
         }
+
         fun bindView(hit: Hit) {
             with(binding) {
                 Glide.with(binding.root).load(hit.previewURL).into(previewImageView)
@@ -45,16 +45,5 @@ class SearchPagingAdapter(diffCallback: DiffUtil.ItemCallback<Hit>, val onClick 
                 likesTextView.text = hit.likes.toString()
             }
         }
-    }
-}
-
-object SearchComparator : DiffUtil.ItemCallback<Hit>() {
-    override fun areItemsTheSame(oldItem: Hit, newItem: Hit): Boolean {
-        // Id is unique.
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Hit, newItem: Hit): Boolean {
-        return oldItem == newItem
     }
 }

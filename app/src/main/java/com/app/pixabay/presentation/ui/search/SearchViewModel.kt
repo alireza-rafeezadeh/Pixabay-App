@@ -11,11 +11,8 @@ import com.app.core.domain.search.Hit
 import com.app.core.domain.search.SearchResponse
 import com.app.core.interactor.search.SearchInteractors
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.transform
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -24,29 +21,8 @@ class SearchViewModel @Inject constructor(
 
     private var _searchImageLiveData = MutableLiveData<ResultWrapper<SearchResponse>>()
     val searchImageLiveData: LiveData<ResultWrapper<SearchResponse>> = _searchImageLiveData
-
-    fun searchImage(searchQuery: String) = viewModelScope.launch {
-        searchInteractors.searchInteractor.searchImage(searchQuery)
-//            .catch {
-//                _searchImageLiveData.postValue(ResultWrapper.ErrorString(it.message ?: ""))
-//            }
-            .transform {
-                if (it is ResultWrapper.Success && it.data.totalHits == 0) {
-                    emit(ResultWrapper.ErrorString("No Item Found!"))
-                } else {
-                    emit(it)
-                }
-            }
-            .collect {
-//                Log.i("search_resp_t", "searchImage: $it")
-                _searchImageLiveData.postValue(it)
-            }
-    }
-
     private var currentQueryValue: String? = null
-
-    var currentSearchResult: Flow<PagingData<Hit>>? = null
-
+    private var currentSearchResult: Flow<PagingData<Hit>>? = null
 
     fun searchWithPaging(queryString: String): Flow<PagingData<Hit>> {
         val lastResult = currentSearchResult
@@ -54,7 +30,6 @@ class SearchViewModel @Inject constructor(
             return lastResult
         }
         currentQueryValue = queryString
-
         val newResult: Flow<PagingData<Hit>> =
             searchInteractors.searchInteractor.getSearchResultStream(queryString)
                 .cachedIn(viewModelScope)
@@ -62,6 +37,3 @@ class SearchViewModel @Inject constructor(
         return newResult
     }
 }
-
-
-

@@ -6,7 +6,10 @@ import androidx.test.espresso.action.ViewActions.clearText
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.app.pixabay.R
@@ -24,7 +27,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
 
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
@@ -52,26 +54,13 @@ class SearchFragmentIntegrationTest {
     }
 
     @Test
-    fun search_should_display_recycler_view() {
-        onView(withId(R.id.editTextTextPersonName))
-            .perform(typeText("s"), ViewActions.closeSoftKeyboard())
-    }
-
-    @Test
-    fun search_display_image_in_recycler_view() {
-        runBlocking {
-            delay(5000)
-        }
+    fun should_display_recycler_view() {
         onView(withId(R.id.search_recycler_view))
-            .check(
-                matches(
-                    atPosition(0, hasDescendant(withId(R.id.preview_image_view)))
-                )
-            )
+            .check(matches(isDisplayed()))
     }
 
     @Test
-    fun search_display_texts_in_recycler_view() {
+    fun should_display_texts_in_recycler_view_after_default_search() {
         runBlocking {
             delay(5000)
         }
@@ -99,7 +88,7 @@ class SearchFragmentIntegrationTest {
     }
 
     @Test
-    fun should_search_and_scroll_to_position_in_recycler_view() {
+    fun should_search_a_word_and_scroll_to_a_certain_position_in_recycler_view() {
 
         onView(withId(R.id.editTextTextPersonName))
             .perform(clearText())
@@ -111,17 +100,7 @@ class SearchFragmentIntegrationTest {
             delay(5000)
         }
 
-//        onView(withId(R.id.search_recycler_view)).perform(
-//            RecyclerViewActions.actionOnItemAtPosition<SearchPagingAdapter.HitViewHolder>(
-//                0, clickChildViewWithId2(R.id.search_item_root_layout)
-//            )
-//        )
-
         onView(withId(R.id.search_recycler_view))
-            .perform(RecyclerViewActions.scrollToPosition<SearchPagingAdapter.HitViewHolder>(13));
-
-//        intended(IntentMatchers.hasComponent("com.app.pixabay.presentation.ui.detail"))
+            .perform(RecyclerViewActions.scrollToPosition<SearchPagingAdapter.HitViewHolder>(13))
     }
 }
-
-

@@ -16,7 +16,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner "com.app.pixabay.util.AppTestRunner"
     }
 
@@ -72,8 +71,6 @@ dependencies {
     androidTestImplementation(TestDependencies.google_truth)
     androidTestImplementation(TestDependencies.navigation_testing)
     kaptAndroidTest(JetpackDependencies.hilt_android_compiler)
-
-
 }
 
 apply from: "../ktlint.gradle"

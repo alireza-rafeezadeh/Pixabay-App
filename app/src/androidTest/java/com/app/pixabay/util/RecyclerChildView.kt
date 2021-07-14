@@ -29,8 +29,6 @@ object ViewAction {
     }
 }
 
-
-
 fun atPosition(position: Int, @NonNull itemMatcher: Matcher<View?>): Matcher<View?>? {
     checkNotNull(itemMatcher)
     return object : BoundedMatcher<View?, RecyclerView>(RecyclerView::class.java) {
@@ -40,9 +38,8 @@ fun atPosition(position: Int, @NonNull itemMatcher: Matcher<View?>): Matcher<Vie
         }
 
         override fun matchesSafely(view: RecyclerView): Boolean {
-            val viewHolder = view.findViewHolderForAdapterPosition(position)
-                ?: // has no item on such position
-                return false
+            val viewHolder = view.findViewHolderForAdapterPosition(position) // has no item on such position
+                ?: return false
             return itemMatcher.matches(viewHolder.itemView)
         }
     }

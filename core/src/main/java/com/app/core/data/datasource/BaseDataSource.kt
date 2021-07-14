@@ -1,6 +1,5 @@
 package com.app.core.data.datasource
 
-import android.util.Log
 import com.app.core.domain.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -18,11 +17,10 @@ open class BaseDataSource {
                         emit(ResultWrapper.Success(it))
                     }
                 } else {
-                    emit(ResultWrapper.ErrorString(response.message()))
+                    emit(ResultWrapper.Error(response.message()))
                 }
             } catch (e: Exception) {
-                Log.i("data_exception", "${e.message}")
-                emit(ResultWrapper.ErrorString(e.message ?: "Unknown Error occurred!"))
+                emit(ResultWrapper.Error(e.message ?: "Unknown Error occurred!"))
             }
         }.flowOn(Dispatchers.IO)
 }

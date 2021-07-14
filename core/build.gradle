@@ -42,6 +42,7 @@ dependencies {
     api(AndroidXDependencies.core_ktx)
     api(AndroidXDependencies.appcompat)
     api(AndroidXDependencies.material)
+    api(AndroidXDependencies.paging)
 
     implementation(JetpackDependencies.hilt_android)
     kapt(JetpackDependencies.hilt_compiler)
@@ -60,7 +61,4 @@ dependencies {
     androidTestImplementation(TestDependencies.espresso_core)
     androidTestImplementation(TestDependencies.androidx_truth)
     androidTestImplementation(TestDependencies.google_truth)
-
-    def paging_version = "3.0.0"
-    api("androidx.paging:paging-runtime-ktx:$paging_version")
 }

@@ -14,14 +14,10 @@ object SearchMockData {
         return SearchResponse(listOf(hit, hit), 2, 2)
     }
 
-    fun getSearchList() = item
-
-
-    val item =listOf(
-    Hit(
-    0, 1, 123, 12, 100, "testUrl",
-    200, "previewUrl", "user", "user", 500
+    fun getSearchList() = listOf(
+        Hit(
+            0, 1, 123, 12, 100, "testUrl",
+            200, "previewUrl", "user", "user", 500
+        )
     )
-    )
-
 }

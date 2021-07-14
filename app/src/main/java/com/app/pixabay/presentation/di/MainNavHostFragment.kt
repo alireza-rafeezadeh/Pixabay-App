@@ -4,7 +4,11 @@ import android.content.Context
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
+@ExperimentalCoroutinesApi
+@FlowPreview
 @AndroidEntryPoint
 class MainNavHostFragment : NavHostFragment() {
 
